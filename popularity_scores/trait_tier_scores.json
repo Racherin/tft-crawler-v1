@@ -1,0 +1,249 @@
+{
+  "traits": {
+    "Blademaster": {
+      "tier": "A",
+      "champions": [
+        "Fiora",
+        "Xayah",
+        "Shen",
+        "Yasuo",
+        "MasterYi",
+        "Irelia",
+        "Kayle"
+      ],
+      "description": "Blademasters' Basic Attacks have a chance to trigger two additional attacks against their target. These additional attacks deal damage like Basic Attacks and trigger on-hit effects."
+    },
+    "Blaster": {
+      "tier": "A",
+      "champions": [
+        "Graves",
+        "Lucian",
+        "Ezreal",
+        "Jinx",
+        "MissFortune"
+      ],
+      "description": "Every fourth Basic Attack from a Blaster fires additional attacks at random enemies. These additional attacks deal damage like Basic Attacks, trigger on-hit effects and can critically hit."
+    },
+    "Brawler": {
+      "tier": "A",
+      "champions": [
+        "Malphite",
+        "Blitzcrank",
+        "Vi",
+        "ChoGath"
+      ],
+      "description": "Brawlers gain bonus Maximum Health."
+    },
+    "Demolitionist": {
+      "tier": "C",
+      "champions": [
+        "Ziggs",
+        "Rumble",
+        "Gangplank"
+      ],
+      "description": "Damage from Demolitionists' spellcasts stun their for 1.50 seconds. (Once per spellcast)"
+    },
+    "Infiltrator": {
+      "tier": "B",
+      "champions": [
+        "KhaZix",
+        "KaiSa",
+        "Shaco",
+        "Fizz",
+        "Ekko"
+      ],
+      "description": "Innate: At the start of combat, Infiltrators move to the enemy's backline. Infiltrators gain Attack Speed for 6 seconds at the start of combat, refreshes on takedown"
+    },
+    "Mercenary": {
+      "tier": "A",
+      "champions": [
+        "Gangplank",
+        "MissFortune"
+      ],
+      "description": "Innate: Upgrades for Mercenaries's spells have a chance to appear in the shop."
+    },
+    "ManaReaver": {
+      "tier": "A",
+      "champions": [
+        "Darius",
+        "Kassadin",
+        "Irelia",
+        "Thresh"
+      ],
+      "description": "Mana-Reaver attacks increase the mana cost of their target\u2019s next spell by 40%"
+    },
+    "Mystic": {
+      "tier": "A",
+      "champions": [
+        "Sona",
+        "Karma",
+        "Soraka",
+        "Lulu"
+      ],
+      "description": "All allies gain Magic Resistance."
+    },
+    "Protector": {
+      "tier": "C",
+      "champions": [
+        "JarvanIV",
+        "Rakan",
+        "XinZhao",
+        "Neeko"
+      ],
+      "description": "Protectors shield themselves for 4 seconds whenever they cast a spell. This shield doesn't stack."
+    },
+    "Sniper": {
+      "tier": "C",
+      "champions": [
+        "Caitlyn",
+        "Ashe",
+        "Jhin"
+      ],
+      "description": "Snipers deal 15% increased damage for each hex between themselves and their target."
+    },
+    "Sorcerer": {
+      "tier": "B",
+      "champions": [
+        "TwistedFate",
+        "Zoe",
+        "Ahri",
+        "Annie",
+        "Lux",
+        "Syndra",
+        "VelKoz",
+        "Xerath"
+      ],
+      "description": "All allies have increased Spell Power."
+    },
+    "Vanguard": {
+      "tier": "A",
+      "champions": [
+        "Leona",
+        "Poppy",
+        "Mordekaiser",
+        "Jayce",
+        "WuKong"
+      ],
+      "description": "Vanguard champions gain bonus Armor."
+    },
+    "Celestial": {
+      "tier": "A",
+      "champions": [
+        "Xayah",
+        "Rakan",
+        "XinZhao",
+        "Ashe",
+        "Kassadin",
+        "Lulu"
+      ],
+      "description": "All allies heal for some of the damage they deal with spells and attacks."
+    },
+    "Chrono": {
+      "tier": "S",
+      "champions": [
+        "Caitlyn",
+        "TwistedFate",
+        "Blitzcrank",
+        "Shen",
+        "Ezreal",
+        "WuKong",
+        "Thresh"
+      ],
+      "description": "All allies gain 15% Attack Speed every some seconds."
+    },
+    "Cybernetic": {
+      "tier": "S",
+      "champions": [
+        "Leona",
+        "Fiora",
+        "Lucian",
+        "Vi",
+        "Irelia",
+        "Ekko"
+      ],
+      "description": "Cybernetic champions with at least one item gain Health and Attack Damage."
+    },
+    "DarkStar": {
+      "tier": "A",
+      "champions": [
+        "JarvanIV",
+        "Mordekaiser",
+        "Karma",
+        "Lux",
+        "Shaco",
+        "Jhin",
+        "Xerath"
+      ],
+      "description": "When a Dark Star Champion dies, all other allied Dark Star Champions gain Attack Damage and Spell Power"
+    },
+    "MechPilot": {
+      "tier": "D",
+      "champions": [
+        "Annie",
+        "Rumble",
+        "Fizz"
+      ],
+      "description": "The Super-Mech has the combined Pilots Health, Attack Damage, and Traits of its Pilots, as well as 3 random items from among them. When the Super-Mech dies the Pilots are ejected, continue to fight."
+    },
+    "Rebel": {
+      "tier": "A",
+      "champions": [
+        "Ziggs",
+        "Malphite",
+        "Sona",
+        "Yasuo",
+        "MasterYi",
+        "Jinx",
+        "AurelionSol"
+      ],
+      "description": "At the start of combat, Rebels gain a shield and increased damage for each adjacent Rebel. The shield lasts for 8 seconds."
+    },
+    "SpacePirate": {
+      "tier": "B",
+      "champions": [
+        "Graves",
+        "Darius",
+        "Jayce",
+        "Gangplank"
+      ],
+      "description": "Whenever a Space Pirate lands a killing blow on a Champion there is a chance to drop extra loot."
+    },
+    "StarGuardian": {
+      "tier": "B",
+      "champions": [
+        "Poppy",
+        "Zoe",
+        "Ashe",
+        "Neeko",
+        "Syndra",
+        "Soraka"
+      ],
+      "description": "Star Guardians' spellcasts grant Mana to other Star Guardians spread among them."
+    },
+    "Valkyrie": {
+      "tier": "A",
+      "champions": [
+        "KaiSa",
+        "Kayle",
+        "MissFortune"
+      ],
+      "description": " Valkyrie attacks and spells always critically hit targets below 40% health."
+    },
+    "Void": {
+      "tier": "A",
+      "champions": [
+        "KhaZix",
+        "ChoGath",
+        "VelKoz"
+      ],
+      "description": "Attacks and spells from Void champions deal true damage."
+    },
+    "Starship": {
+      "tier": "D",
+      "champions": [
+        "AurelionSol"
+      ],
+      "description": "Innate: Starships gain 40 Mana per second, maneuver around the board, and are immune to movement impairing effects, but can't Basic Attack."
+    }
+  }
+}
