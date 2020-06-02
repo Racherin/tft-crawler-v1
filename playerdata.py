@@ -285,7 +285,7 @@ def getchampinfo():
                     except:
                         pass
                     im2.execute(
-                        """INSERT OR IGNORE INTO champs(region,champ_name,tier,place,istopfour,iswin,item1,item2,item3,version,game_mode) VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
+                        """INSERT OR IGNORE INTO champion_data(region,champ_name,tier,place,istopfour,iswin,item1,item2,item3,version,game_mode) VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
                         (
                             match_region, unit['character_id'].split('_')[1], unit['tier'], placement, istopfour,
                             iswin,
