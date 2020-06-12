@@ -10,12 +10,13 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
     "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": "RGAPI-ba095dc6-6dcb-47dd-b6f2-cf9da197ed22"
+    "X-Riot-Token": "RGAPI-1bab49fb-e3cd-446b-a751-d96d562ecdc7"
 }
 
 def get_match_ids(region):
-    db = sqlite3.connect('players.sqlite')
-    db2 = sqlite3.connect("new_tft.sqlite")
+    match_count = 10
+    db = sqlite3.connect('databases/players.sqlite')
+    db2 = sqlite3.connect("databases/match_ids.sqlite")
     im = db.cursor()
     im2 = db2.cursor()
     im2.execute(
@@ -46,8 +47,8 @@ def get_match_ids(region):
 
     for i in im:
         if i[3] == 'euw1' or i[3] == 'eun1' or i[3] == 'tr1' or i[3] == 'ru':
-            print('adding new euw player')
-            url = 'https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/{}/ids?count={}'.format(i[1], 10)
+            #print('adding new euw player')
+            url = 'https://europe.api.riotgames.com/tft/match/v1/matches/by-puuid/{}/ids?count={}'.format(i[1], match_count)
             try:
                 request = requests.get(url, headers=headers, timeout=5)
             except requests.exceptions.HTTPError as errh:
@@ -66,8 +67,8 @@ def get_match_ids(region):
                 im2.execute("""INSERT OR IGNORE INTO match_ids(matchId) VALUES(?)""", (match,))
                 db2.commit()
         elif i[3] == 'na1' or i[3] == 'br1' or i[3] == 'la1' or i[3] == 'la2' or i[3] == 'oc1':
-            print('adding new na player')
-            url = 'https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/{}/ids?count={}'.format(i[1], 10)
+            #print('adding new na player')
+            url = 'https://americas.api.riotgames.com/tft/match/v1/matches/by-puuid/{}/ids?count={}'.format(i[1], match_count)
             try:
                 request = requests.get(url, headers=headers, timeout=5)
             except requests.exceptions.HTTPError as errh:
@@ -86,8 +87,8 @@ def get_match_ids(region):
                 im2.execute("""INSERT OR IGNORE INTO match_ids(matchId) VALUES(?)""", (match,))
                 db2.commit()
         elif i[3] == 'kr' or i[3] == 'jp1':
-            print('adding new asian player')
-            url = 'https://asia.api.riotgames.com/tft/match/v1/matches/by-puuid/{}/ids?count={}'.format(i[1], 10)
+            #print('adding new asian player')
+            url = 'https://asia.api.riotgames.com/tft/match/v1/matches/by-puuid/{}/ids?count={}'.format(i[1], match_count)
             try:
                 request = requests.get(url, headers=headers, timeout=5)
             except requests.exceptions.HTTPError as errh:
@@ -121,11 +122,11 @@ def get_all_match_ids():
 
 
 if __name__ == '__main__':
-        get_all_match_ids()
-        db =sqlite3.connect("new_tft.sqlite")
-        im = db.cursor()
-        im.execute("CREATE TABLE temp_table as SELECT DISTINCT * FROM match_ids;")
-        im.execute("DELETE FROM match_ids;")
-        im.execute("INSERT INTO match_ids SELECT * FROM temp_table")
-        db.commit()
-        im.close()
+    get_all_match_ids()
+    db =sqlite3.connect("databases/match_ids.sqlite")
+    im = db.cursor()
+    im.execute("CREATE TABLE temp_table as SELECT DISTINCT * FROM match_ids;")
+    im.execute("DELETE FROM match_ids;")
+    im.execute("INSERT INTO match_ids SELECT * FROM temp_table")
+    db.commit()
+    im.close()

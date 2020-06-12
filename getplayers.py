@@ -10,12 +10,10 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
     "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": "RGAPI-ba095dc6-6dcb-47dd-b6f2-cf9da197ed22"
+    "X-Riot-Token": "RGAPI-1bab49fb-e3cd-446b-a751-d96d562ecdc7"
 }
-
-
 def get_challengers(region):
-    db = sqlite3.connect("players.sqlite")
+    db = sqlite3.connect("databases/players.sqlite")
     im = db.cursor()
     url = 'https://{}.api.riotgames.com/tft/league/v1/{}'.format(region, 'challenger')
     im.execute(
@@ -53,7 +51,7 @@ def get_challengers(region):
         data = (player_data['puuid'], player['summonerName'], region, player['wins'], player['losses'])
         im.execute("""INSERT INTO players(puuid, summonerName,region,wins,loses) VALUES (?,?,?,?,?)""",
                    data)
-        print("adding new", region, "challenger", data[1])
+        #print("adding new", region, "challenger", data[1])
         db.commit()
 
 def get_all_challengers():
@@ -68,7 +66,7 @@ def get_all_challengers():
     print("get_all_challengers",b-a)
 
 def get_grandmasters(region):
-    db = sqlite3.connect("players.sqlite")
+    db = sqlite3.connect("databases/players.sqlite")
     im = db.cursor()
     url = 'https://{}.api.riotgames.com/tft/league/v1/{}'.format(region, 'grandmaster')
     im.execute(
@@ -106,7 +104,7 @@ def get_grandmasters(region):
         data = (player_data['puuid'], player['summonerName'], region, player['wins'], player['losses'])
         im.execute("""INSERT INTO players(puuid, summonerName,region,wins,loses) VALUES (?,?,?,?,?)""",
                    data)
-        print("adding new", region, "grandmaster", data[1])
+        #print("adding new", region, "grandmaster", data[1])
         db.commit()
 
 def get_all_grandmasters():
@@ -121,7 +119,7 @@ def get_all_grandmasters():
     print("get_all_grandmasters",b-a)
 
 def get_masters(region):
-    db = sqlite3.connect("players.sqlite")
+    db = sqlite3.connect("databases/players.sqlite")
     im = db.cursor()
     url = 'https://{}.api.riotgames.com/tft/league/v1/{}'.format(region, 'master')
     im.execute(
@@ -159,7 +157,7 @@ def get_masters(region):
         data = (player_data['puuid'], player['summonerName'], region, player['wins'], player['losses'])
         im.execute("""INSERT INTO players(puuid, summonerName,region,wins,loses) VALUES (?,?,?,?,?)""",
                    data)
-        print("adding new", region, "master", data[1])
+        #print("adding new", region, "master", data[1])
         db.commit()
 
 def get_all_masters():
@@ -175,4 +173,4 @@ def get_all_masters():
 
 
 if __name__ == '__main__':
-    get_all_challengers()
+    get_all_masters()

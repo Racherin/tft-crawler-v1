@@ -2,7 +2,6 @@ import sqlite3
 import requests
 import json
 import time
-import pandas as pd
 from datetime import datetime
 import operator
 import ast
@@ -1140,18 +1139,13 @@ def getchampscore():
         json.dump(json_data2, json_file)
     b = datetime.now()
     print("getchampscore :", b - a)
-    # print(df['Ahri']['avg'])
-    # 10% of avg item
-    # 10% of winrate
-    # 10% of top4
-    # 70% of pickrate
 
 
 def parsechampscore():
     a = datetime.now()
     json_data = {"champions": {}}
     df_new = pd.read_json("popularity_scores/champ_scores_new.json").to_dict()
-    df_old = pd.read_json('popularity_scores/champ_scores_old.json').to_dict()
+    df_old = pd.read_json('popularity_scores/outdated_scores.json').to_dict()
     champ_names = {'Ahri': ['starguardian', 'sorcerer'], 'Annie': ['mechpilot', 'sorcerer'],
                    'Ashe': ['celestial', 'sniper'], 'AurelionSol': ['rebel', 'starship'],
                    'Blitzcrank': ['chrono', 'brawler'], 'Caitlyn': ['chrono', 'sniper'], 'ChoGath': ['void', 'brawler'],
@@ -1345,7 +1339,7 @@ def parsetraitscore():
     a = datetime.now()
     json_data = {"traits": {}}
     df_new = pd.read_json("popularity_scores/trait_scores_new.json").to_dict()
-    df_old = pd.read_json('popularity_scores/trait_scores_old.json').to_dict()
+    df_old = pd.read_json('popularity_scores/outdated_scores.json').to_dict()
     trait_names = ['Blademaster', 'Blaster', 'Brawler', 'Celestial', 'Chrono', 'Cybernetic', 'DarkStar',
                    'Demolitionist', 'Infiltrator', 'ManaReaver', 'MechPilot', 'Mercenary', 'Mystic', 'Protector',
                    'Rebel', 'Sniper', 'Sorcerer', 'SpacePirate', 'StarGuardian', 'Starship', 'Valkyrie', 'Vanguard',
@@ -2204,7 +2198,7 @@ def parseitemscore():
     a = datetime.now()
     json_data = {"items": {}}
     df_new = pd.read_json("popularity_scores/item_scores_new.json").to_dict()
-    df_old = pd.read_json('popularity_scores/item_scores_old.json').to_dict()
+    df_old = pd.read_json('popularity_scores/outdated_scores.json').to_dict()
     df = pd.read_json("jsons_new/item_stats_TFT3_GameVariation_None.json").to_dict()
 
     for val, key in df.items():
