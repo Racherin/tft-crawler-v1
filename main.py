@@ -1,15 +1,16 @@
-import getplayers,getmatchids,getchampiondata,gettraitdata,getitemdata,getcompdata,getotherdata,getpopularitydata
+import getplayers, getmatchids, getchampiondata, gettraitdata, getitemdata, getcompdata, getotherdata, getpopularitydata
 import sqlite3
 from datetime import datetime
 
 if __name__ == '__main__':
     a = datetime.now()
-    getplayers.get_all_masters()
+    getplayers.get_all_challengers()
+    getplayers.get_all_grandmasters()
     getmatchids.get_all_match_ids()
     db = sqlite3.connect("databases/match_ids.sqlite")
     im = db.cursor()
     im.execute("CREATE TABLE IF NOT EXISTS temp_table as SELECT DISTINCT * FROM match_ids;")
-    im.execute("DELETE FROM match_ids;")
+    im.execute("DELETE FROM match_i ds;")
     im.execute("INSERT INTO match_ids SELECT * FROM temp_table")
     db.commit()
     im.close()
@@ -19,7 +20,6 @@ if __name__ == '__main__':
     gettraitdata.parse_all_trait_data()
     getitemdata.get_item_data()
     getitemdata.parse_all_item_data()
-    getcompdata.get_all_comp_data()
     getpopularitydata.getchampscore()
     getpopularitydata.getchampdiff()
     getpopularitydata.gettraitscore()
@@ -29,4 +29,4 @@ if __name__ == '__main__':
     getotherdata.get_last_update()
     getotherdata.get_total_matches()
     b = datetime.now()
-    print('total',b-a)
+    print('total', b - a)

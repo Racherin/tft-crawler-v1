@@ -17,11 +17,11 @@ def get_total_matches():
     cursor = db.cursor()
     cursor.execute("SELECT * FROM match_ids")
     mc = {
-        'match_count':int(len(cursor.fetchall())),
+        'match_count' : int(len(cursor.fetchall())),
     }
     with open('json_data/other_data/match_count.json', "w") as json_file:
         json.dump(mc, json_file)
 
 
 if __name__ == '__main__':
-    get_total_matches()
+    get_last_update()

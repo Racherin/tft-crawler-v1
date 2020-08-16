@@ -12,7 +12,7 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
     "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": "RGAPI-1bab49fb-e3cd-446b-a751-d96d562ecdc7"
+    "X-Riot-Token": ""
 }
 
 def get_item_data():
@@ -25,7 +25,7 @@ def get_item_data():
     im2.execute("""CREATE TABLE IF NOT EXISTS item_data(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,region,item_name,place,istopfour,iswin,version,game_mode)""")
     df = pd.read_sql_query("SELECT * FROM champion_data WHERE item1 IS NOT NULL", db)
     for id, val in df.iterrows():
-        if str(val['version']).startswith("10.12"):
+        if str(val['version']).startswith("10.15"):
 
             im3.execute(
             """INSERT INTO item_data(region,item_name,place,istopfour,iswin,version,game_mode) VALUES(?,?,?,?,?,?,?)""",
@@ -33,14 +33,14 @@ def get_item_data():
              val['game_mode']))
     df = pd.read_sql_query("SELECT * FROM champion_data WHERE item2 IS NOT NULL", db)
     for id, val in df.iterrows():
-        if str(val['version']).startswith("10.12"):
+        if str(val['version']).startswith("10.15"):
             im3.execute(
             """INSERT INTO item_data(region,item_name,place,istopfour,iswin,version,game_mode) VALUES(?,?,?,?,?,?,?)""",
             (val['region'], val['item2'], val['place'], val['istopfour'], val['iswin'], val['version'],
              val['game_mode']))
     df = pd.read_sql_query("SELECT * FROM champion_data WHERE item3 IS NOT NULL", db)
     for id, val in df.iterrows():
-        if str(val['version']).startswith("10.12"):
+        if str(val['version']).startswith("10.15"):
             im3.execute(
             """INSERT INTO item_data(region,item_name,place,istopfour,iswin,version,game_mode) VALUES(?,?,?,?,?,?,?)""",
             (val['region'], val['item3'], val['place'], val['istopfour'], val['iswin'], val['version'],
@@ -74,8 +74,8 @@ def parse_all_item_data():
     pool2 = Pool(processes=10)
     game_modes = ['TFT3_GameVariation_None', 'TFT3_GameVariation_TwoStarCarousels', 'TFT3_GameVariation_MidGameFoN',
                   'TFT3_GameVariation_FreeRerolls',
-                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_BigLittleLegends', 'TFT3_GameVariation_FreeNeekos',
-                  'TFT3_GameVariation_StartingItems','TFT3_GameVariation_LittlerLegends']
+                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_TwoItemMax', 'TFT3_GameVariation_Dreadnova',
+                  'TFT3_GameVariation_StartingItems','TFT3_GameVariation_SmallerBoards']
     for mode in game_modes :
         r1 = pool2.apply_async(parse_item_data, [mode])
     pool2.close()

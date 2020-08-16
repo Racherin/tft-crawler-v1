@@ -11,7 +11,7 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
     "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": "RGAPI-1bab49fb-e3cd-446b-a751-d96d562ecdc7"
+    "X-Riot-Token": ""
 }
 
 
@@ -101,7 +101,7 @@ def getchampdata(region):
                     item3 = unit['items'][2]
                 except:
                     pass
-                if str(version).startswith("10.12"):
+                if str(version).startswith("10.15"):
                     im3.execute(
                         """INSERT INTO champion_data(region,champ_name,tier,place,istopfour,iswin,item1,item2,item3,version,game_mode) VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
                         (
@@ -180,7 +180,7 @@ def parsechampdata(game_mode):
     three_cost_units = ['Ashe', 'Ezreal', 'Jayce', 'Karma', 'MasterYi', 'Neeko', 'Rumble', 'Shaco',
                         'Syndra', 'Vi', 'Bard', 'Cassiopeia', 'Vayne']
     four_cost_units = ['Fizz', 'Irelia', 'Jhin', 'Jinx', 'Soraka', 'WuKong', 'Gnar', 'Riven', 'Teemo', 'Viktor']
-    five_cost_units = ['Gangplank', 'Lulu', 'Thresh', 'Xerath', 'Janna', 'Urgot', 'AurelionSol']
+    five_cost_units = ['Gangplank', 'Lulu', 'Thresh', 'Xerath', 'Janna', 'Urgot', 'AurelionSol','Ekko']
     db = sqlite3.connect('databases/champion_data.sqlite')
     if game_mode == 'TFT3_GameVariation_None':
         df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_None'", db)
@@ -193,15 +193,15 @@ def parsechampdata(game_mode):
         df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_FreeRerolls'", db)
     elif game_mode == 'TFT3_GameVariation_Bonanza':
         df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_Bonanza'", db)
-    elif game_mode == 'TFT3_GameVariation_BigLittleLegends':
-        df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_BigLittleLegends'",
+    elif game_mode == 'TFT3_GameVariation_TwoItemMax':
+        df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_TwoItemMax'",
                                db)
-    elif game_mode == 'TFT3_GameVariation_FreeNeekos':
-        df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_FreeNeekos'", db)
+    elif game_mode == 'TFT3_GameVariation_Dreadnova':
+        df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_Dreadnova'", db)
     elif game_mode == 'TFT3_GameVariation_StartingItems':
         df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_StartingItems'", db)
-    elif game_mode == 'TFT3_GameVariation_LittlerLegends':
-        df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_LittlerLegends'", db)
+    elif game_mode == 'TFT3_GameVariation_SmallerBoards':
+        df = pd.read_sql_query("SELECT * FROM champion_data WHERE game_mode == 'TFT3_GameVariation_SmallerBoards'", db)
 
     champ_counts = df['champ_name']
     champ_counts = champ_counts.value_counts(normalize=True) * 100
@@ -279,8 +279,8 @@ def parse_all_champ_data():
     pool2 = Pool(processes=10)
     game_modes = ['TFT3_GameVariation_None', 'TFT3_GameVariation_TwoStarCarousels', 'TFT3_GameVariation_MidGameFoN',
                   'TFT3_GameVariation_FreeRerolls',
-                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_BigLittleLegends', 'TFT3_GameVariation_FreeNeekos',
-                  'TFT3_GameVariation_StartingItems', 'TFT3_GameVariation_LittlerLegends']
+                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_TwoItemMax', 'TFT3_GameVariation_Dreadnova',
+                  'TFT3_GameVariation_StartingItems', 'TFT3_GameVariation_SmallerBoards']
     for mode in game_modes:
         r1 = pool2.apply_async(parsechampdata, [mode])
     pool2.close()
@@ -302,4 +302,4 @@ def get_all_champ_data():
 
 
 if __name__ == '__main__':
-    parse_all_champ_data()
+    get_all_champ_data()

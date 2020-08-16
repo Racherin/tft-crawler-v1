@@ -9,22 +9,79 @@ from operator import *
 import copy
 import operator
 
-
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36 Edg/83.0.478.37",
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
     "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": "RGAPI-1bab49fb-e3cd-446b-a751-d96d562ecdc7"
+    "X-Riot-Token": ""
 }
+
 
 def get_all_comp_data():
     a = datetime.now()
     json_data = {}
-    game_modes = ['TFT3_GameVariation_None', 'TFT3_GameVariation_TwoStarCarousels', 'TFT3_GameVariation_MidGameFoN',
-                  'TFT3_GameVariation_FreeRerolls',
-                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_BigLittleLegends', 'TFT3_GameVariation_FreeNeekos',
-                  'TFT3_GameVariation_StartingItems', 'TFT3_GameVariation_LittlerLegends']
+    game_modes = ['AllGalaxies']
+    indicators = {
+        "Ahri": "None",
+        "Annie": "None",
+        "Ashe": "None",
+        "AurelionSol": "None",
+        "Bard": "Nerf",
+        "Blitzcrank": "None",
+        "Caitlyn": "None",
+        "Cassiopeia": "None",
+        "Ezreal": "None",
+        "Ekko": "None",
+        "Darius": "None",
+        "Fiora": "None",
+        "Fizz": "Nerf",
+        "Gangplank": "Buff",
+        "Graves": "None",
+        "Gnar": "None",
+        "Illaoi": "None",
+        "Irelia": "None",
+        "Janna": "None",
+        "JarvanIV": "None",
+        "Jayce": "None",
+        "Jhin": "Nerf",
+        "Jinx": "Buff",
+        "Karma": "None",
+        "KogMaw": "None",
+        "Leona": "None",
+        "Lucian": "None",
+        "Lulu": "None",
+        "Malphite": "None",
+        "MasterYi": "None",
+        "Mordekaiser": "None",
+        "Nautilus": "None",
+        "Neeko": "None",
+        "Nocturne": "None",
+        "Poppy": "None",
+        "Rakan": "None",
+        "Rumble": "None",
+        "Shaco": "None",
+        "Shen": "None",
+        "Syndra": "None",
+        "Soraka": "None",
+        "Riven": "None",
+        "Teemo": "Nerf",
+        "Thresh": "None",
+        "TwistedFate": "None",
+        "Urgot": "None",
+        "Vayne": "None",
+        "Vi": "None",
+        "Viktor": "None",
+        "WuKong": "None",
+        "Xayah": "None",
+        "Xerath": "None",
+        "XinZhao": "None",
+        "Yasuo": "None",
+        "Zed": "None",
+        "Ziggs": "None",
+        "Zoe": "None"
+
+    }
     item_name_list = {"1": "B.F Sword", "2": "Recurve Bow", "3": "Needlessly Large Rod", "4": "Tear of the Goddess",
                       "5": "Chain Vest", "6": "Negatron Cloak", "7": "Giant's Belt", "8": "Spatula",
                       "9": "Sparring Gloves", "11": "Deathblade", "12": "Giant Slayer", "13": "Hextech Gunblade",
@@ -34,7 +91,7 @@ def get_all_comp_data():
                       "26": "Runaan's Hurricane", "27": "Zz'Rot Portal", "28": "Infiltrator's Talons",
                       "29": "Last Whisper", "33": "Rabadon's Deathcap", "34": "Luden's Echo",
                       "35": "Locket of the Iron Solari", "36": "Ionic Spark", "37": "Morellonomicon",
-                      "38": "Battlecast Hex Core", "39": "Jeweled Gauntlet", "44": "Blue Sentiel",
+                      "38": "Battlecast Hex Core", "39": "Jeweled Gauntlet", "44": "Blue Buff",
                       "45": "Frozen Heart", "46": "Chalice of Favor", "47": "Redemption", "48": "Star Guardian's Charm",
                       "49": "Hand of Justice", "55": "Bramble Vest", "56": "Sword Breaker", "57": "Red Buff",
                       "58": "Rebel Medal", "59": "Shroud of Stillness", "66": "Dragon's Claw", "67": "Zephyr",
@@ -65,7 +122,7 @@ def get_all_comp_data():
                    'Jhin': ['darkstar', 'sniper'],
                    'Jinx': ['rebel', 'blaster'],
                    'Karma': ['darkstar', 'mystic'],
-                   'KogMaw': ['battlecast', 'brawler'],
+                   'KogMaw': ['battlecast', 'blaster'],
                    'Leona': ['cybernetic', 'vanguard'],
                    'Lucian': ['cybernetic', 'blaster'],
                    'Lulu': ['celestial', 'mystic'],
@@ -102,7 +159,7 @@ def get_all_comp_data():
                       'cybernetic': 0, 'darkstar': 0, 'demolitionist': 0, 'infiltrator': 0, 'manareaver': 0,
                       'mechpilot': 0, 'mercenary': 0, 'mystic': 0, 'protector': 0, 'rebel': 0, 'sniper': 0,
                       'sorcerer': 0, 'spacepirate': 0, 'starguardian': 0, 'starship': 0,
-                      'vanguard': 0, 'astro': 0,'paragon':0,'battlecast':0}
+                      'vanguard': 0, 'astro': 0, 'paragon': 0, 'battlecast': 0}
     inv_map = {v: k for k, v in item_name_list.items()}
 
     for mode in game_modes:
@@ -114,7 +171,8 @@ def get_all_comp_data():
                 max_col = int(column[0])
         for column in range(1, max_col + 1):
             json_data["team_comp_{}".format(column)] = {"comp_name": str(), "Thumbnail_picture": None, "Count": None,
-                                                        "Placement": None,
+                                                        "Placement": None, "WinRate": None, "Top4Rate": None,
+                                                        "PickPct": None,
                                                         "Traits": {'blademaster': 0, 'brawler': 0, 'blaster': 0,
                                                                    'celestial': 0, 'chrono': 0,
                                                                    'cybernetic': 0, 'darkstar': 0, 'demolitionist': 0,
@@ -123,8 +181,60 @@ def get_all_comp_data():
                                                                    'protector': 0, 'rebel': 0, 'sniper': 0,
                                                                    'sorcerer': 0, 'spacepirate': 0, 'starguardian': 0,
                                                                    'starship': 0,
-                                                                   'vanguard': 0, 'astro': 0,'battlecast':0,'paragon':0}, "Trait_tiers": None,
-                                                        "Champions": {}}
+                                                                   'vanguard': 0, 'astro': 0, 'battlecast': 0,
+                                                                   'paragon': 0}, "Trait_tiers": None,
+                                                        "Champions": {},
+                                                        "first_row": {
+                                                            "a1": "None",
+                                                            "a2": "None",
+                                                            "a3": "None",
+                                                            "a4": "None",
+                                                            "a5": "None",
+                                                            "a6": "None",
+                                                            "a7": "None",
+                                                        },
+                                                        "second_row": {
+
+                                                            "b1": "None",
+                                                            "b2": "None",
+                                                            "b3": "None",
+                                                            "b4": "None",
+                                                            "b5": "None",
+                                                            "b6": "None",
+                                                            "b7": "None",
+
+                                                        },
+                                                        "third_row": {
+
+                                                            "c1": "None",
+                                                            "c2": "None",
+                                                            "c3": "None",
+                                                            "c4": "None",
+                                                            "c5": "None",
+                                                            "c6": "None",
+                                                            "c7": "None",
+
+                                                        },
+                                                        "fourth_row": {
+                                                            "d1": "None",
+                                                            "d2": "None",
+                                                            "d3": "None",
+                                                            "d4": "None",
+                                                            "d5": "None",
+                                                            "d6": "None",
+                                                            "d7": "None",
+                                                        },
+                                                        "first_item_priortiy": {
+                                                            "first": "None",
+                                                            "second": "None",
+                                                            "third": "None"
+                                                        },
+                                                        "item_priority": {
+                                                            "first": "None",
+                                                            "second": "None",
+                                                            "third": "None"
+                                                        }
+                                                        }
         for column in range(1, max_col + 1):
             df_col1 = df['{}_character'.format(column)].to_dict()
             for val, key in df_col1.items():
@@ -135,7 +245,8 @@ def get_all_comp_data():
                             json_data["team_comp_{}".format(column)]['Thumbnail_picture'] = str(key).strip(
                                 "TFT3").strip("_")
                         json_data["team_comp_{}".format(column)]['Champions'][
-                            '{}'.format(str(key).strip("TFT3").strip("_"))] = {"Count": int(df_col2[val]), "Items": []}
+                            '{}'.format(str(key).strip("TFT3").strip("_"))] = {"Count": int(df_col2[val]), "Items": [],
+                                                                               "Indicator": indicators['{}'.format(str(key).strip("TFT3").strip("_"))]}
                         for trait in range(len(champ_names['{}'.format(str(key).strip("TFT3").strip("_"))])):
                             # print(champ_names['{}'.format(str(key).strip("TFT3").strip("_"))][trait])
                             json_data["team_comp_{}".format(column)]['Traits'][
@@ -161,6 +272,12 @@ def get_all_comp_data():
                 elif key == "Count":
                     json_data["team_comp_{}".format(column)][key] = df_col2[val]
                 elif key == "Placement":
+                    json_data["team_comp_{}".format(column)][key] = df_col2[val]
+                elif key == "WinRate":
+                    json_data["team_comp_{}".format(column)][key] = df_col2[val]
+                elif key == "Top4Rate":
+                    json_data["team_comp_{}".format(column)][key] = df_col2[val]
+                elif key == "PickPct":
                     json_data["team_comp_{}".format(column)][key] = df_col2[val]
             traits_copy = copy.deepcopy(json_data)
             for val, key in json_data["team_comp_{}".format(column)]["Trait_tiers"].items():
@@ -208,12 +325,12 @@ def get_all_comp_data():
                 elif val == 'valkyrie' and key > 1:
                     traits_copy["team_comp_{}".format(column)]['Trait_tiers'][val] = key // 2
                 elif val == 'vanguard' and key > 1:
-                    traits_copy["team_comp_{}".format(column)]['Trait_tiers'][val] = 1
+                    traits_copy["team_comp_{}".format(column)]['Trait_tiers'][val] = key // 2
                 elif val == 'astro' and key > 2:
                     traits_copy["team_comp_{}".format(column)]['Trait_tiers'][val] = 1
-                elif val == 'battlecast' and key >1 :
+                elif val == 'battlecast' and key > 1:
                     traits_copy["team_comp_{}".format(column)]['Trait_tiers'][val] = key // 2
-                elif val == 'paragon' and key >0 :
+                elif val == 'paragon' and key > 0:
                     traits_copy["team_comp_{}".format(column)]['Trait_tiers'][val] = 1
                 else:
                     traits_copy["team_comp_{}".format(column)]['Trait_tiers'].pop(val)
@@ -228,12 +345,12 @@ def get_all_comp_data():
             json_data["team_comp_{}".format(column)]["comp_name"] = str(
                 comp_name_list[0].title() + " & " + comp_name_list[1].title())
             json_data["team_comp_{}".format(column)].pop("Traits")
-        json_data_sorted = sorted(json_data.items(), key=lambda x: getitem(x[1], 'Count'),reverse=True)
-        with open('json_data/comp_data/{}.json'.format(str(mode).split('_')[2]), "w") as json_file:
+        json_data_sorted = sorted(json_data.items(), key=lambda x: getitem(x[1], 'Placement'), reverse=False)
+        with open('json_data/comp_data/None.json', "w") as json_file:
             json.dump(dict(json_data_sorted), json_file)
     b = datetime.now()
-    print('get_comp_data',b-a)
+    print('get_comp_data', b - a)
+
 
 if __name__ == '__main__':
     get_all_comp_data()
-

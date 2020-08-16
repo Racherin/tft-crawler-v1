@@ -12,7 +12,7 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
     "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": "RGAPI-1bab49fb-e3cd-446b-a751-d96d562ecdc7"
+    "X-Riot-Token": ""
 }
 def get_trait_data(region):
     global istopfour, iswin, item1, item3, item2
@@ -105,7 +105,7 @@ def get_trait_data(region):
                     trait_name = 'Mystic'
                 else:
                     trait_name = unit['name']
-                if str(version).startswith("10.12"):
+                if str(version).startswith("10.15"):
                     im3.execute(
                     """INSERT OR IGNORE INTO trait_data(region,trait_name,num_units,tier_current,place,istopfour,iswin,version,game_mode) VALUES(?,?,?,?,?,?,?,?,?)""",
                     (
@@ -146,7 +146,7 @@ def parse_trait_data(game_mode):
     db = sqlite3.connect('databases/trait_data.sqlite')
     game_modes = ['TFT3_GameVariation_None', 'TFT3_GameVariation_TwoStarCarousels', 'TFT3_GameVariation_MidGameFoN',
                   'TFT3_GameVariation_FreeRerolls',
-                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_BigLittleLegends', 'TFT3_GameVariation_FreeNeekos']
+                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_TwoItemMax', 'TFT3_GameVariation_Dreadnova']
     if game_mode == 'TFT3_GameVariation_None':
         df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_None'", db)
     elif game_mode == 'TFT3_GameVariation_TwoStarCarousels':
@@ -157,14 +157,14 @@ def parse_trait_data(game_mode):
         df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_FreeRerolls'", db)
     elif game_mode == 'TFT3_GameVariation_Bonanza':
         df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_Bonanza'", db)
-    elif game_mode == 'TFT3_GameVariation_BigLittleLegends':
-        df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_BigLittleLegends'", db)
-    elif game_mode == 'TFT3_GameVariation_FreeNeekos':
-        df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_FreeNeekos'", db)
+    elif game_mode == 'TFT3_GameVariation_TwoItemMax':
+        df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_TwoItemMax'", db)
+    elif game_mode == 'TFT3_GameVariation_Dreadnova':
+        df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_Dreadnova'", db)
     elif game_mode == 'TFT3_GameVariation_StartingItems':
         df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_StartingItems'",db)
-    elif game_mode == 'TFT3_GameVariation_LittlerLegends':
-        df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_LittlerLegends'",db)
+    elif game_mode == 'TFT3_GameVariation_SmallerBoards':
+        df = pd.read_sql_query("SELECT * FROM trait_data WHERE game_mode == 'TFT3_GameVariation_SmallerBoards'",db)
 
     #print(game_mode, 'writing into json.')
     champ_counts = df['trait_name']
@@ -223,14 +223,14 @@ def parse_all_trait_data():
     pool2 = Pool(processes=10)
     game_modes = ['TFT3_GameVariation_None', 'TFT3_GameVariation_TwoStarCarousels', 'TFT3_GameVariation_MidGameFoN',
                   'TFT3_GameVariation_FreeRerolls',
-                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_BigLittleLegends', 'TFT3_GameVariation_FreeNeekos',
-                  'TFT3_GameVariation_StartingItems','TFT3_GameVariation_LittlerLegends']
+                  'TFT3_GameVariation_Bonanza', 'TFT3_GameVariation_BigLittleLegends', 'TFT3_GameVariation_Dreadnova',
+                  'TFT3_GameVariation_StartingItems','TFT3_GameVariation_SmallerBoards']
     for mode in game_modes :
         r1 = pool2.apply_async(parse_trait_data, [mode])
     pool2.close()
     pool2.join()
     b = datetime.now()
-    print('parse_all_champs',b-a)
+    print('parse_all_traits',b-a)
 
 if __name__ == '__main__':
     get_all_trait_data()

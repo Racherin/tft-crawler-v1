@@ -73,7 +73,7 @@ def getchampscore():
                    'Zoe': ['starguardian', 'sorcerer']}
     for name in champ_names.keys():
         avg = (float(df['{}'.format(name)]['avg']) * 100) * 20 / 100
-        win_rate = (float(df['{}'.format(name)]['win_rate'].rstrip('%')) * 10) * 5 / 100
+        win_rate = (float(df['{}'.format(name)]['win_rate']) * 10) * 5 / 100
         top_four_rate = (float(df['{}'.format(name)]['top_four_rate'].rstrip('%')) * 10) * 5 / 100
         pick_rate = (float(df['{}'.format(name)]['pick_rate']) * 10) * 70 / 100
         score = avg + win_rate + top_four_rate + pick_rate
@@ -90,7 +90,7 @@ def getchampscore():
         else:
             json_data2["champions"]["{}".format(name)] = "D"
 
-    with open("json_data/popularity_data/champions/outdated_scores.json", 'w') as json_file:
+    with open("json_data/popularity_data/champions/updated_scores.json", 'w') as json_file:
         json.dump(json_data, json_file)
     with open("json_data/popularity_data/champions/updated_tiers.json", 'w') as json_file:
         json.dump(json_data2, json_file)
@@ -195,7 +195,7 @@ def gettraitscore():
         },
         "StarGuardian": {
             "tier": None,
-            "champions": ["Poppy", "Zoe", "Ashe", "Neeko", "Syndra", "Soraka","Janna"],
+            "champions": ["Poppy", "Zoe", "Neeko", "Syndra", "Soraka","Janna"],
             "description": "Star Guardians' spellcasts grant Mana to other Star Guardians spread among them.",
         },
         "Starship": {
@@ -241,7 +241,7 @@ def gettraitscore():
             json_data2["traits"]["{}".format(name)]["tier"] = "C"
         else:
             json_data2["traits"]["{}".format(name)]["tier"] = "D"
-    with open("json_data/popularity_data/traits/outdated_scores.json", 'w') as json_file:
+    with open("json_data/popularity_data/traits/updated_scores.json", 'w') as json_file:
         json.dump(json_data, json_file)
     with open("json_data/popularity_data/traits/updated_tiers.json", 'w') as json_file:
         json.dump(json_data2, json_file)
@@ -307,7 +307,7 @@ def getitemscore():
         "7": {
             "name": "Giant's Belt",
             "components": None,
-            "description": "200 Healt.",
+            "description": "200 Health.",
             "tier": str(),
             "powers": {
                 "hp": 200
@@ -385,7 +385,7 @@ def getitemscore():
         "16": {
             "name": "Bloodthirster",
             "components": [1, 6],
-            "description": "Basic Attacks heal the wearer for 35% of the damage dealt.",
+            "description": "Basic Attacks heal the wearer for 45% of the damage dealt.",
             "tier": str(),
             "powers": {
                 "ad": 15,
@@ -493,7 +493,7 @@ def getitemscore():
         "29": {
             "name": "Last Whisper",
             "components": [2, 9],
-            "description": "Critical hits reduce the target’s Armor by 90% for 3 seconds. This effect does not stack.",
+            "description": "Critical hits reduce the target’s Armor by 75% for 3 seconds. This effect does not stack.",
             "tier": str(),
             "powers": {
             }
@@ -568,7 +568,7 @@ def getitemscore():
             }
         },
         "44": {
-            "name": "Blue Sentiel",
+            "name": "Blue Buff",
             "components": [4, 4],
             "description": "Set's holder mana to 20 after each cast.",
             "tier": str(),
@@ -788,14 +788,14 @@ def getitemscore():
                 json_data2["items"]["{}".format(val)]["tier"] = "D"
         except:
             json_data["items"]["{}".format(val)] = 0
-    with open("json_data/popularity_data/items/outdated_scores.json", 'w') as json_file:
+    with open("json_data/popularity_data/items/updated_scores.json", 'w') as json_file:
         json.dump(json_data, json_file)
     with open("json_data/popularity_data/items/updated_tiers.json", 'w') as json_file:
         json.dump(json_data2, json_file)
 
 def getchampdiff():
     json_data = {"champions": {}}
-    df_new = pd.read_json("json_data/popularity_data/champions/outdated_scores.json").to_dict()
+    df_new = pd.read_json("json_data/popularity_data/champions/updated_scores.json").to_dict()
     df_old = pd.read_json("json_data/popularity_data/champions/outdated_scores.json").to_dict()
     champ_names = {'Ahri': ['starguardian', 'sorcerer'],
                    'Annie': ['mechpilot', 'sorcerer'],
@@ -864,7 +864,7 @@ def getchampdiff():
 
 def gettraitdiff():
     json_data = {"traits": {}}
-    df_new = pd.read_json("json_data/popularity_data/traits/outdated_scores.json").to_dict()
+    df_new = pd.read_json("json_data/popularity_data/traits/updated_scores.json").to_dict()
     df_old = pd.read_json("json_data/popularity_data/traits/outdated_scores.json").to_dict()
     trait_names = ['Blademaster', 'Blaster', 'Brawler', 'Celestial', 'Chrono', 'Cybernetic', 'DarkStar',
                    'Demolitionist', 'Infiltrator', 'ManaReaver', 'MechPilot', 'Mercenary', 'Mystic', 'Protector',
@@ -879,7 +879,7 @@ def gettraitdiff():
 
 def getitemdiff():
     json_data = {"items": {}}
-    df_new = pd.read_json("json_data/popularity_data/items/outdated_scores.json").to_dict()
+    df_new = pd.read_json("json_data/popularity_data/items/updated_scores.json").to_dict()
     df_old = pd.read_json("json_data/popularity_data/items/outdated_scores.json").to_dict()
     df = pd.read_json("json_data/item_data/None.json").to_dict()
 
